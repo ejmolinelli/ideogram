@@ -81,7 +81,8 @@ function inflateHeatmaps(ideo) {
 
   heatmaps = [];
   rawAnnots = ideo.rawAnnots;
-  labels = rawAnnots.keys.slice(3,);
+  var _keys = rawAnnots.keys();
+  labels = _keys.slice(3,_keys.length);
 
   annotationTracks = [];
   displayedTracks = [];
