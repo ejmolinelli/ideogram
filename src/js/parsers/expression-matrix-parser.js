@@ -52,8 +52,9 @@ export class ExpressionMatrixParser {
       return new Promise(function(resolve) {
         ideo.fetch(ensemblData, 'text').then(function(data) {
           var tsvLines, i, start, stop, gene, geneType, chr, length;
+          tsvLines = data.split(/\r\n|\n/);
+          tsvLines = tsvLines.slice(1,tsvLines.length);
           
-          tsvLines = data.split(/\r\n|\n/).slice(1,);
           for (i = 0; i < tsvLines.length; i++) {
             [start, stop, gene, geneType, chr] = tsvLines[i].split(/\s/g);
             start = parseInt(start);
@@ -79,7 +80,7 @@ export class ExpressionMatrixParser {
     gene = columns[0];
     if (gene in this.coordinates === false) return [null, null];
 
-    expressions = columns.slice(1,).map(d => parseFloat(d));
+    expressions = columns.slice(1,columns.length).map(d => parseFloat(d));
     [chr, start, length] = this.coordinates[gene];
 
     chrIndex = chrs.indexOf(chr);
